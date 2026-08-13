@@ -1,0 +1,90 @@
+{
+  "_note": "Stress scenarios are stored as the INDEX LEVELS they are derived from, not as a percentage. The percentage is recomputed from the levels at load time and a test asserts the arithmetic. That way the only thing anyone has to verify is two published closing prices, and correcting a level corrects every number downstream of it in one place. A magnitude asserted directly as '-38%' cannot be checked at all.",
+  "_verification": "Every level below is transcribed from published index closing prices. Transcription is a step where errors happen, so the status field says so. Re-verify against your data provider before quoting any of these in an interview - and if a level is wrong, fix it here, not in the code.",
+  "scenarios": [
+    {
+      "name": "gfc_2008_calendar_year",
+      "universe": "US",
+      "label": "Global Financial Crisis - S&P 500 calendar year 2008",
+      "index": "S&P 500",
+      "peak_date": "2007-12-31",
+      "peak_level": 1468.36,
+      "trough_date": "2008-12-31",
+      "trough_level": 903.25,
+      "basis": "CALENDAR_YEAR_PRICE_RETURN",
+      "source": "S&P 500 published daily closing levels",
+      "verification_status": "TRANSCRIBED_FROM_PUBLISHED_INDEX_CLOSES",
+      "note": "This is the figure usually quoted as '2008 was down about 38%'. It is a calendar-year price return and it is NOT the same thing as the crisis drawdown - the index fell considerably further peak to trough. Quoting one and describing the other is the most common sloppiness in this area."
+    },
+    {
+      "name": "gfc_peak_to_trough",
+      "universe": "US",
+      "label": "Global Financial Crisis - S&P 500 peak to trough",
+      "index": "S&P 500",
+      "peak_date": "2007-10-09",
+      "peak_level": 1565.15,
+      "trough_date": "2009-03-09",
+      "trough_level": 676.53,
+      "basis": "PEAK_TO_TROUGH_DRAWDOWN",
+      "source": "S&P 500 published daily closing levels",
+      "verification_status": "TRANSCRIBED_FROM_PUBLISHED_INDEX_CLOSES",
+      "note": "The full drawdown, 17 months from the October 2007 closing high to the March 2009 closing low. This is the number a risk committee cares about, because it is what an investor holding through the crisis actually experienced."
+    },
+    {
+      "name": "covid_crash_2020",
+      "universe": "US",
+      "label": "COVID-19 crash - S&P 500, Feb-Mar 2020",
+      "index": "S&P 500",
+      "peak_date": "2020-02-19",
+      "peak_level": 3386.15,
+      "trough_date": "2020-03-23",
+      "trough_level": 2237.40,
+      "basis": "PEAK_TO_TROUGH_DRAWDOWN",
+      "source": "S&P 500 published daily closing levels",
+      "verification_status": "TRANSCRIBED_FROM_PUBLISHED_INDEX_CLOSES",
+      "note": "23 trading days from record close to trough - a comparable magnitude to the 2008 calendar year compressed into five weeks. Speed matters as much as depth for a portfolio with any liquidity constraint, which a single-shock model does not capture."
+    },
+    {
+      "name": "gfc_2008_calendar_year_nifty",
+      "universe": "NSE_INDIA",
+      "label": "Global Financial Crisis - NIFTY 50 calendar year 2008",
+      "index": "NIFTY 50",
+      "peak_date": "2007-12-31",
+      "peak_level": 6138.6,
+      "trough_date": "2008-12-31",
+      "trough_level": 2959.15,
+      "basis": "CALENDAR_YEAR_PRICE_RETURN",
+      "source": "NIFTY 50 published daily closing levels (NSE India)",
+      "verification_status": "TRANSCRIBED_FROM_PUBLISHED_INDEX_CLOSES",
+      "note": "Indian equities fell materially harder than US equities in 2008 despite the crisis originating in US housing credit - a useful reminder that a portfolio's crisis exposure is about capital flows and risk appetite, not only about where the shock started."
+    },
+    {
+      "name": "gfc_peak_to_trough_nifty",
+      "universe": "NSE_INDIA",
+      "label": "Global Financial Crisis - NIFTY 50 peak to trough",
+      "index": "NIFTY 50",
+      "peak_date": "2008-01-08",
+      "peak_level": 6287.85,
+      "trough_date": "2008-10-27",
+      "trough_level": 2524.2,
+      "basis": "PEAK_TO_TROUGH_DRAWDOWN",
+      "source": "NIFTY 50 published daily closing levels (NSE India)",
+      "verification_status": "TRANSCRIBED_FROM_PUBLISHED_INDEX_CLOSES",
+      "note": "Closing high to closing low. Intraday levels are higher and lower respectively; closes are used throughout this project so that every figure comes off the same series the returns are computed from."
+    },
+    {
+      "name": "covid_crash_2020_nifty",
+      "universe": "NSE_INDIA",
+      "label": "COVID-19 crash - NIFTY 50, Jan-Mar 2020",
+      "index": "NIFTY 50",
+      "peak_date": "2020-01-14",
+      "peak_level": 12362.3,
+      "trough_date": "2020-03-23",
+      "trough_level": 7610.25,
+      "basis": "PEAK_TO_TROUGH_DRAWDOWN",
+      "source": "NIFTY 50 published daily closing levels (NSE India)",
+      "verification_status": "TRANSCRIBED_FROM_PUBLISHED_INDEX_CLOSES",
+      "note": "The NIFTY bottomed on the same session as the S&P 500. In a global liquidity event correlations converge towards one, which is precisely when a diversification assumption fitted on calm-period data stops holding."
+    }
+  ]
+}

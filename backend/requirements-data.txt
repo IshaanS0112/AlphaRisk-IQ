@@ -1,0 +1,6 @@
+# Only needed to DOWNLOAD real market data with scripts/fetch_prices.py.
+# Deliberately separate from requirements.txt: the API image has no reason to
+# carry pandas and a market data client, and the test suite must never touch the
+# network.
+yfinance==0.2.51
+pandas==2.2.3

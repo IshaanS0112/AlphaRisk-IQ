@@ -1,0 +1,49 @@
+{
+  "_note": "Two asset universes. The universe a portfolio belongs to decides which benchmark index beta is estimated against, which crisis magnitudes are meaningful for its holdings, and which risk-free rate is the right one to subtract. Applying an S&P 500 drawdown to an NSE portfolio is a category error; the universe is what prevents it.",
+  "universes": {
+    "NSE_INDIA": {
+      "label": "NSE India (NIFTY 50 constituents)",
+      "currency": "INR",
+      "benchmark_symbol": "^NSEI",
+      "benchmark_label": "NIFTY 50",
+      "trading_days_per_year": 250,
+      "trading_days_note": "NSE settles roughly 246-250 sessions a year after weekends and exchange holidays. Using 252 here instead moves an annualised volatility by ~0.4%, which is immaterial next to estimation error - but the number is declared rather than assumed.",
+      "risk_free_annual": 0.065,
+      "risk_free_basis": "Indicative 91-day Government of India T-bill yield",
+      "risk_free_as_of": "2026-07",
+      "risk_free_status": "APPROXIMATE_PLACEHOLDER_VERIFY_BEFORE_QUOTING",
+      "yahoo_suffix": ".NS",
+      "tickers": [
+        {"ticker": "RELIANCE.NS", "name": "Reliance Industries Ltd", "sector": "Energy / Conglomerate"},
+        {"ticker": "TCS.NS", "name": "Tata Consultancy Services Ltd", "sector": "Information Technology"},
+        {"ticker": "HDFCBANK.NS", "name": "HDFC Bank Ltd", "sector": "Financials"},
+        {"ticker": "INFY.NS", "name": "Infosys Ltd", "sector": "Information Technology"},
+        {"ticker": "ITC.NS", "name": "ITC Ltd", "sector": "Consumer Staples"},
+        {"ticker": "ICICIBANK.NS", "name": "ICICI Bank Ltd", "sector": "Financials"},
+        {"ticker": "LT.NS", "name": "Larsen & Toubro Ltd", "sector": "Industrials / Infrastructure"},
+        {"ticker": "HINDUNILVR.NS", "name": "Hindustan Unilever Ltd", "sector": "Consumer Staples"}
+      ]
+    },
+    "US": {
+      "label": "US large cap (S&P 500 constituents)",
+      "currency": "USD",
+      "benchmark_symbol": "^GSPC",
+      "benchmark_label": "S&P 500",
+      "trading_days_per_year": 252,
+      "trading_days_note": "252 is the conventional US count and the one every published Sharpe figure you will be compared against uses.",
+      "risk_free_annual": 0.042,
+      "risk_free_basis": "Indicative 3-month US Treasury bill yield",
+      "risk_free_as_of": "2026-07",
+      "risk_free_status": "APPROXIMATE_PLACEHOLDER_VERIFY_BEFORE_QUOTING",
+      "yahoo_suffix": "",
+      "tickers": [
+        {"ticker": "AAPL", "name": "Apple Inc.", "sector": "Information Technology"},
+        {"ticker": "MSFT", "name": "Microsoft Corp.", "sector": "Information Technology"},
+        {"ticker": "JPM", "name": "JPMorgan Chase & Co.", "sector": "Financials"},
+        {"ticker": "XOM", "name": "Exxon Mobil Corp.", "sector": "Energy"},
+        {"ticker": "JNJ", "name": "Johnson & Johnson", "sector": "Health Care"},
+        {"ticker": "PG", "name": "Procter & Gamble Co.", "sector": "Consumer Staples"}
+      ]
+    }
+  }
+}

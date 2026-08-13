@@ -1,0 +1,16 @@
+# Python 3.10 - 3.13.
+#
+# numpy, pydantic-core and psycopg2-binary publish wheels up to 3.13. On 3.14+
+# pip falls back to building them from source, which needs a full C and Rust
+# toolchain and fails with several screens of compiler errors. Build the venv
+# with `python3.13 -m venv .venv`, or just run ./dev.sh which checks for you.
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+pydantic==2.10.4
+pydantic-settings==2.7.0
+numpy==2.2.1
+anthropic==0.42.0
+python-dotenv==1.0.1

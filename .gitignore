@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.pytest_cache/
+.ruff_cache/
+node_modules/
+dist/
+.DS_Store
+# SQLite, including the sidecar files. *.db alone misses the rollback journal
+# and the WAL/shared-memory files, which is how a database ends up half-committed
+# to a repo.
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite3
+
+# Real market data is downloaded, not committed: it is someone else's data, it
+# goes stale, and a repo is a poor place to version a few megabytes of CSV that
+# `scripts/fetch_prices.py` regenerates in thirty seconds. The SYNTHETIC fixture
+# IS committed, because CI and a first clone must work offline.
+data/historical_prices/REAL_MARKET_DATA/
+*.tsbuildinfo

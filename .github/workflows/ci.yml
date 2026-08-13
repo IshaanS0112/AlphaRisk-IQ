@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    name: Backend tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        working-directory: backend
+        run: pip install -r requirements-dev.txt
+      - name: Test
+        working-directory: backend
+        # No services block: the models declare JSONB and UUID as dialect
+        # variants, so the API tests run the real app against SQLite. CI needs no
+        # database container. No network either - the price fixture is committed.
+        run: python -m pytest -q
+
+  fixture:
+    name: Synthetic fixture is reproducible
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        working-directory: backend
+        run: pip install -r requirements-dev.txt
+      - name: Regenerate the fixture in place
+        run: python backend/scripts/generate_synthetic_prices.py
+      - name: Fail if anything changed
+        # A fixture that regenerates differently is not a fixture, and the bug is
+        # invisible until someone tries to reproduce a published number.
+        run: git diff --exit-code -- data/historical_prices/SYNTHETIC
+
+  scenarios:
+    name: Scenario magnitudes still match the documented figures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        working-directory: backend
+        run: pip install -r requirements-dev.txt
+      - name: Validate
+        working-directory: backend
+        # Edit an index level and this fails: the number you would quote in an
+        # interview has changed and you should find out here, not there.
+        run: python -m pytest tests/test_stress_and_scenarios.py -q
+
+  frontend:
+    name: Frontend typecheck and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install
+        working-directory: frontend
+        run: npm install
+      - name: Typecheck
+        working-directory: frontend
+        run: npm run typecheck
+      - name: Build
+        working-directory: frontend
+        run: npm run build
