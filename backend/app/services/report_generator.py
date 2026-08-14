@@ -19,10 +19,10 @@ that claim is made checkable rather than asserted:
    report deterministically from the same context. Every number is identical;
    only the prose is missing.
 
-The line to have ready: *"The model doesn't calculate VaR or Sharpe - my code
-does, with the formulas in the methodology endpoint. The model writes the
-narrative interpretation, and I can show you the exact structured payload it was
-given, because it's stored on the report row."*
+In short: the model does not calculate VaR or Sharpe. The engine does, using the
+formulas published at ``GET /methodology``. The model writes the narrative
+interpretation over a payload that is stored on the report row and can be
+compared against the prose it produced.
 """
 
 from __future__ import annotations

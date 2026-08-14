@@ -1,6 +1,6 @@
 {
   "_note": "Stress scenarios are stored as the INDEX LEVELS they are derived from, not as a percentage. The percentage is recomputed from the levels at load time and a test asserts the arithmetic. That way the only thing anyone has to verify is two published closing prices, and correcting a level corrects every number downstream of it in one place. A magnitude asserted directly as '-38%' cannot be checked at all.",
-  "_verification": "Every level below is transcribed from published index closing prices. Transcription is a step where errors happen, so the status field says so. Re-verify against your data provider before quoting any of these in an interview - and if a level is wrong, fix it here, not in the code.",
+  "_verification": "Every level below is transcribed from published index closing prices. Transcription is a step where errors happen, so the status field says so. Re-verify against your data provider before relying on any of these. If a level is wrong, correct it here rather than in the code - every figure downstream is derived from it.",
   "scenarios": [
     {
       "name": "gfc_2008_calendar_year",

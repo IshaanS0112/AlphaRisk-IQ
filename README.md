@@ -1,5 +1,9 @@
 # AlphaRisk IQ
 
+[![CI](https://github.com/IshaanS0112/AlphaRisk-IQ/actions/workflows/ci.yml/badge.svg)](https://github.com/IshaanS0112/AlphaRisk-IQ/actions/workflows/ci.yml)
+[![Python 3.10-3.13](https://img.shields.io/badge/python-3.10--3.13-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 Portfolio risk and decision intelligence. Sharpe and Sortino under both downside
 conventions, historical and parametric Value at Risk with expected shortfall,
 Kupiec-tested VaR backtesting, and beta-adjusted scenario stress testing against
@@ -64,26 +68,11 @@ Terminal 2 - the dashboard on http://localhost:5173:
 cd frontend && npm install && npm run dev
 ```
 
-Prefer to do it by hand? Same thing, step by step:
+`dev.sh` selects a supported interpreter, creates the virtualenv, installs, runs
+the test suite and starts the API. Manual setup, configuration and troubleshooting
+are in **[`docs/development.md`](docs/development.md)**.
 
-```bash
-cd backend
-python3.13 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.txt
-cp .env.example .env
-python -m pytest -q
-uvicorn app.main:app --reload
-```
-
-Paste those one line at a time. macOS zsh ships with `interactive_comments` off,
-so a trailing `# comment` on a pasted command is treated as an argument, not a
-comment - which is why none of the blocks in this repo carry inline comments.
-
-Or the whole stack on real PostgreSQL: `docker compose up --build`.
-
-Step-by-step with expected output at every stage, plus troubleshooting:
-**[`docs/RUNBOOK.md`](docs/RUNBOOK.md)**.
+The whole stack on PostgreSQL: `docker compose up --build`.
 
 The synthetic price fixture ships with the repository, so everything above works
 on a fresh clone with no network access. For real numbers:
@@ -100,15 +89,16 @@ the synthetic-data banner disappears from the UI.
 
 ## The thing I got wrong, and then got right
 
-The brief I started from said this, and so does most of the internet:
+The standard framing, repeated in most textbooks and every tutorial I read while
+building this, is:
 
-> Parametric VaR assumes returns are normally distributed, which **underestimates
-> tail risk** — real financial returns have fatter tails than a normal
-> distribution. Computing both and showing the (usually larger) historical VaR is
-> a genuine, defensible insight.
+> Parametric VaR assumes returns are normally distributed, which underestimates
+> tail risk — real financial returns have fatter tails than a normal
+> distribution — so historical VaR comes out larger.
 
-The first half is right. The conclusion is only right at high confidence levels,
-and the level where it flips is inside the range people actually quote.
+The first clause is right. The conclusion is only right at high confidence
+levels, and the level where it flips sits inside the range people routinely
+quote.
 
 A fat-tailed distribution with the same variance as a normal does not have more
 mass everywhere in the tail. Variance is fixed, so fatter extremes have to be paid
@@ -380,8 +370,7 @@ Worth knowing about a few of them:
   randomises string hashing per process, so a seed derived from `hash(str)` gives
   a different dataset on every run. CI fails if the fixture drifts.
 - **`test_the_documented_magnitudes_still_hold`** is a tripwire on this README:
-  edit an index level and it fails, because a number you would quote in an
-  interview has changed.
+  edit an index level and it fails, because a documented magnitude has moved.
 - **`test_every_number_in_the_fallback_appears_in_the_context`** is the report
   architecture expressed as an assertion.
 
@@ -424,9 +413,8 @@ backend/scripts/
 frontend/src/                     PortfolioBuilder, RiskMetricsPanel, VarPanel,
                                   BacktestPanel, StressTestView, ReportView
 data/                             universes, scenarios, price series
-docs/RUNBOOK.md                   step-by-step run guide with expected output
-docs/PUSHING.md                   step-by-step GitHub push and repo setup
-docs/architecture.md              what's real vs simulated, lessons learned
+docs/development.md               setup, configuration, tests, CI
+docs/architecture.md              design decisions, what's real vs simulated
 docs/schema.sql                   the PostgreSQL reference schema
 ```
 

@@ -58,8 +58,8 @@ jobs:
         run: pip install -r requirements-dev.txt
       - name: Validate
         working-directory: backend
-        # Edit an index level and this fails: the number you would quote in an
-        # interview has changed and you should find out here, not there.
+        # Edit an index level and this fails: a documented magnitude has moved,
+        # and every figure derived from it moves with it.
         run: python -m pytest tests/test_stress_and_scenarios.py -q
 
   frontend:
@@ -72,7 +72,7 @@ jobs:
           node-version: "22"
       - name: Install
         working-directory: frontend
-        run: npm install
+        run: npm ci
       - name: Typecheck
         working-directory: frontend
         run: npm run typecheck

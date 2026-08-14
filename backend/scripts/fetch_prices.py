@@ -17,11 +17,11 @@ matters less for a risk number than for a return number, but the two come
 together in yfinance and there is no reason to want the unadjusted series here.
 
 **On the data source.** Yahoo Finance is free, unofficial and occasionally wrong
-about corporate actions on Indian tickers in particular. It is entirely adequate
-for a portfolio project and it is not what a desk would use. Say that rather than
-letting someone else point it out: the honest framing is "Yahoo Finance daily
-adjusted closes via yfinance, which is a free unofficial feed - a production
-system would use the exchange's own end-of-day files or a licensed vendor."
+about corporate actions, particularly on Indian tickers. It is adequate for
+analysis at this scale and it is not production-grade: a system running real
+capital would use the exchange's own end-of-day files or a licensed vendor. The
+manifest records the source on every load so the provenance travels with the
+data.
 """
 
 from __future__ import annotations

@@ -1,21 +1,13 @@
 #!/usr/bin/env bash
-# One command to set up and run the backend:  ./dev.sh
+# Development bootstrap: virtualenv, dependencies, tests, API.
 #
-# Exists because two things bite people on a fresh Mac and both produce
-# confusing errors:
+#   ./dev.sh
 #
-#   1. Pasting a command with a trailing "# comment" into zsh. macOS zsh ships
-#      with interactive_comments OFF, so the "#" is NOT a comment - it becomes an
-#      argument, and `source .venv/bin/activate  # ... (.venv)` dies with
-#      "zsh: unknown file attribute: v" because zsh parses (.venv) as a glob
-#      qualifier. The venv silently never activates and every command after it
-#      fails with "command not found".
-#
-#   2. Creating the venv with a Python newer than the pinned wheels support.
-#      pip then tries to compile numpy and pydantic-core from source and fails
-#      several screens later with a wall of C and Rust errors.
-#
-# This script checks for both, and is idempotent - run it as often as you like.
+# Idempotent. Verifies the interpreter version before creating the virtualenv,
+# because the pinned dependencies publish wheels only up to Python 3.13 and pip
+# otherwise falls back to building numpy and pydantic-core from source - which
+# fails several screens later with compiler errors that say nothing about the
+# actual cause.
 
 set -euo pipefail
 cd "$(dirname "$0")/backend"
@@ -99,13 +91,10 @@ python -m pytest -q
 
 cat <<'MSG'
 
-==> Tests pass. Starting the API on http://localhost:8000
-    Interactive docs: http://localhost:8000/docs
-    Stop with Ctrl+C.
+==> Starting the API on http://localhost:8000 (OpenAPI UI at /docs)
 
-    Now open a SECOND terminal and run:
-        cd ~/BASE/02-projects/AlphaRiskIQ/frontend && npm run dev
-    then browse to http://localhost:5173
+    For the dashboard, in a second shell:
+        cd frontend && npm install && npm run dev
 
 MSG
 

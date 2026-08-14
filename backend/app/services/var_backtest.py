@@ -24,15 +24,14 @@ p = 1 - confidence, the likelihood ratio
 is asymptotically chi-square with one degree of freedom. Above 3.841 the null is
 rejected at 95%.
 
-**What this test does not do**, and the honest caveat to have ready: Kupiec tests
-only the *number* of breaches, not their *timing*. A model that breaches five
-times in five consecutive days during one crisis and never again passes Kupiec
-just as cleanly as one that breaches five times spread evenly across the year -
-and the first model is far more dangerous, because clustered breaches are exactly
-what wipes out a book. Testing independence of breaches is Christoffersen's
-conditional-coverage test, and it is a documented V2. The clustering statistics
-here (longest breach run, count of consecutive-day breaches) are reported so the
-gap is at least visible in the output.
+**What this test does not do.** Kupiec tests only the *number* of breaches, not
+their *timing*. A model that breaches five times in five consecutive days during
+one crisis and never again passes it just as cleanly as one that breaches five
+times spread evenly across the year - and the first is far more dangerous,
+because clustered breaches are what wipes out a book. Testing independence of
+breaches is Christoffersen's conditional-coverage test, documented as V2. The
+clustering statistics here (longest breach run, count of consecutive-day
+breaches) are reported so the gap is visible in the output.
 """
 
 from __future__ import annotations

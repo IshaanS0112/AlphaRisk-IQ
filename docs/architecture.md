@@ -190,13 +190,14 @@ choice is visibly a choice.
 ## Lessons learned
 
 **A number can be right and still be wrong.** The single most useful thing I did
-here was check the claim I had been handed — "fat tails, therefore historical VaR
+here was check the received wisdom — "fat tails, therefore historical VaR
 exceeds parametric VaR" — instead of implementing it. It is true at 99% and false
 at 95%, because a leptokurtic distribution has a more peaked *body* as well as
 fatter extremes and the variance is fixed, so the two must trade off. If I had
 built the naive version, the demo portfolio would have shown parametric above
-historical at 95% and I would have had no explanation for it in an interview. Now
-that inversion is the most interesting thing in the output.
+historical at 95% and the output would have contradicted its own
+documentation. That inversion is now the most informative thing the engine
+reports.
 
 **Expected shortfall earned its place by accident.** I added it as a small bonus.
 It turned out to be the thing that resolves the crossover: at 95% the VaR

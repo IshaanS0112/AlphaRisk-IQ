@@ -41,10 +41,11 @@ def test_every_scenario_magnitude_is_derived_from_its_stored_index_levels():
     ],
 )
 def test_the_documented_magnitudes_still_hold(name, approximate_pct):
-    """A tripwire on the README and the interview answer.
+    """A tripwire on the figures quoted in the README.
 
-    Edit an index level and this fails, which is the intended behaviour: the
-    number you would quote in an interview has changed and you should know.
+    Editing an index level fails this test, which is the intended behaviour: a
+    documented magnitude has changed and every figure derived from it moves with
+    it.
     """
     scenario = scenario_service.load_scenarios()[name]
     assert scenario.shock_pct == pytest.approx(approximate_pct, abs=5e-4)
