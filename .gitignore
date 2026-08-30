@@ -19,7 +19,7 @@ dist/
 
 # Real market data is downloaded, not committed: it is someone else's data, it
 # goes stale, and a repo is a poor place to version a few megabytes of CSV that
-# `scripts/fetch_prices.py` regenerates in thirty seconds. The SYNTHETIC fixture
+# `backend/scripts/fetch_prices.py` regenerates in thirty seconds. The SYNTHETIC fixture
 # IS committed, because CI and a first clone must work offline.
 data/historical_prices/REAL_MARKET_DATA/
 *.tsbuildinfo

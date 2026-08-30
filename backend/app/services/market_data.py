@@ -51,8 +51,8 @@ def _read_manifest(folder: Path) -> dict:
             f"No _manifest.json in {folder}. Price folders must declare their "
             "provenance in a manifest; a folder of bare CSVs could be anything, and "
             "'anything' is not a provenance. Generate the fixture with "
-            "scripts/generate_synthetic_prices.py or download real data with "
-            "scripts/fetch_prices.py."
+            "backend/scripts/generate_synthetic_prices.py or download real data with "
+            "backend/scripts/fetch_prices.py."
         )
     return json.loads(manifest_path.read_text())
 
