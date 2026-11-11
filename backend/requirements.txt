@@ -14,3 +14,9 @@ pydantic-settings==2.7.0
 numpy==2.2.1
 anthropic==0.42.0
 python-dotenv==1.0.1
+# Pinned deliberately. fastapi's TestClient imports starlette.testclient, which
+# uses anyio.abc.BlockingPortal; anyio deprecated that alias in 4.10, and with
+# pytest.ini's `filterwarnings = error::DeprecationWarning` every API test then
+# errors at setup (and ./dev.sh, which runs the suite first, stops). StrategySphere
+# carries the same pin for the same reason.
+anyio==4.9.0
